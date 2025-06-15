@@ -63,7 +63,7 @@ cd diplom
 
 **Windows:**
 ```cmd
-python -m .venv venv
+python -m venv .venv
 .venv\Scripts\activate
 ```
 
