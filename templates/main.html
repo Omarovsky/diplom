@@ -1,0 +1,204 @@
+<div class="login-container">
+    <div class="login-box">
+        <h2>Добро пожаловать обратно!</h2>
+        <p>Мы так счастливы, что вы вернулись.</p>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="usernameOrEmail">Электронная почта или имя пользователя</label>
+                <input type="text" id="usernameOrEmail" name="username" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" required>
+                <span class="toggle-password">👁️</span>
+            </div>
+
+            <a href="#" class="forgot-password">Забыли пароль?</a>
+
+            <button type="submit" class="login-button">Войти</button>
+        </form>
+
+        <p class="signup-link">
+            Нужен аккаунт? <a href="#">Зарегистрироваться</a>
+        </p>
+    </div>
+</div>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #36393f; /* Discord dark background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        color: #dcddde;
+    }
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .login-box {
+        background-color: #303136; /* Discord card background */
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 380px; /* Adjust as needed */
+        text-align: center;
+    }
+
+    h2 {
+        color: #fff;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #b9bbbe;
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .input-group {
+        text-align: left;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .input-group label {
+        display: block;
+        color: #8e9297;
+        font-size: 12px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+    }
+
+    .input-group input {
+        width: calc(100% - 20px);
+        padding: 12px 10px;
+        border: 1px solid #202225;
+        border-radius: 4px;
+        background-color: #202225;
+        color: #dcddde;
+        font-size: 16px;
+        transition: border-color 0.2s;
+    }
+
+    .input-group input:focus {
+        border-color: #7289da; /* Discord blue */
+        outline: none;
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 60%; /* Adjust based on label/input size */
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #8e9297;
+        font-size: 18px;
+    }
+
+    .forgot-password {
+        color: #00aff4; /* Discord link blue */
+        font-size: 14px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+        margin-top: -10px;
+        margin-bottom: 20px;
+    }
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+
+    .login-button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 4px;
+        background-color: #5865f2; /* Discord button blue */
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .login-button:hover {
+        background-color: #4752c4;
+    }
+
+    .signup-link {
+        font-size: 14px;
+        color: #96989d;
+        margin-top: 25px;
+    }
+
+    .signup-link a {
+        color: #00aff4;
+        text-decoration: none;
+    }
+
+    .signup-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // Запретить стандартную отправку формы
+
+        const usernameOrEmail = document.getElementById('usernameOrEmail').value;
+        const password = document.getElementById('password').value;
+
+        // Здесь вы бы отправляли запрос к вашему API
+        // Пример (используйте реальный URL вашего API):
+        try {
+            const response = await fetch('/auth/login', { // Замените на ваш реальный URL API
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    grant_type: 'password', // Согласно вашей API спецификации
+                    username: usernameOrEmail,
+                    password: password,
+                    scope: '', // Если не нужен, отправьте пустую строку или опустите
+                    client_id: '', // Если не нужен, отправьте пустую строку или опустите
+                    client_secret: '' // Если не нужен, отправьте пустую строку или опустите
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Вход успешен:', data);
+                // Перенаправить пользователя или обновить интерфейс
+            } else {
+                const errorData = await response.json();
+                console.error('Ошибка входа:', errorData.message);
+                // Показать сообщение об ошибке пользователю
+            }
+        } catch (error) {
+            console.error('Ошибка сети или сервера:', error);
+            // Показать общее сообщение об ошибке
+        }
+    });
+
+    // Функция показа/скрытия пароля
+    document.querySelector('.toggle-password').addEventListener('click', function() {
+        const passwordInput = document.getElementById('password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? '👁️' : '🙈'; // Изменить иконку
+    });
+</script>   

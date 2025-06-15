@@ -1,0 +1,160 @@
+/* Basic Resets & Body Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif; /* Or your preferred font */
+    background-color: #1a1a1a; /* Dark background */
+    color: #e0e0e0; /* Light text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent body scroll if container handles it */
+}
+
+.container {
+    display: flex;
+    width: 90%; /* Adjust as needed */
+    max-width: 1400px; /* Max width for the entire app */
+    height: 80vh; /* Adjust as needed, e.g., 90vh */
+    background-color: #2e2e2e; /* Slightly lighter dark for the main app container */
+    border-radius: 10px; /* Slightly rounded corners for the app container */
+    overflow: hidden; /* Ensures internal elements stay within bounds */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px; /* Fixed width for the sidebar */
+    background-color: #222222; /* Darker background for sidebar */
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0; /* Vertical padding */
+    box-sizing: border-box; /* Include padding in width */
+    position: relative; /* For footer positioning */
+}
+
+.user-avatars {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Space between avatars */
+    padding-bottom: 20px; /* Space before menu */
+    border-bottom: 1px solid #333; /* Separator line */
+    margin-bottom: 20px;
+}
+
+.avatar-wrapper {
+    position: relative;
+    width: 50px; /* Size of the avatar circle */
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent; /* Default border */
+    transition: border-color 0.2s ease-in-out;
+}
+
+.avatar-wrapper.active {
+    border-color: #ffffff; /* White border for active avatar */
+}
+
+.avatar-wrapper:hover {
+    border-color: #666; /* Hover effect */
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image covers the circle */
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px; /* Adjust as needed */
+    right: -5px; /* Adjust as needed */
+    background-color: #ff4500; /* Orange-red for notification */
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7em;
+    font-weight: bold;
+}
+
+.icon-button {
+    width: 50px;
+    height: 50px;
+    background-color: #3a3a3a; /* Darker gray for the buttons */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.icon-button:hover {
+    background-color: #555;
+}
+
+.icon-button .icon {
+    width: 60%; /* Adjust icon size */
+    height: 60%;
+    filter: invert(100%); /* Make icons white if they are dark */
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px; /* Horizontal padding for menu items */
+    gap: 10px; /* Space between menu items */
+}
+
+.menu-item {
+    background-color: #3a3a3a; /* Darker gray for menu buttons */
+    color: #e0e0e0;
+    border: none;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 1em;
+    border-radius: 8px; /* Slightly more rounded corners */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.menu-item:hover {
+    background-color: #555;
+    color: white;
+}
+
+/* Footer Note */
+.footer-note {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.7em;
+    color: #888;
+    padding-top: 10px; /* Space above footer */
+}
+
+.footer-note p {
+    margin: 0;
+}
+
+.footer-note .heart {
+    color: #ff69b4; /* Pink heart */
+}
+
+/* Main Content Area */
+.main-content {
+    flex-grow: 1; /* Takes up remaining space */
+    background-color: #2e2e2e; /* Same as container or slightly different if desired */
+    border-radius: 0 10px 10px 0; /* Only right corners rounded for main content */
+    padding: 20px; /* Internal padding */
+    box-sizing: border-box;
+}

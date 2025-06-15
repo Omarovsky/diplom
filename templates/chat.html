@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Чат</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        #chat { border: 1px solid #ccc; height: 300px; overflow-y: scroll; padding: 10px; }
+        input, button { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>WebSocket Чат</h2>
+    <label>Токен: <input type="text" id="token" size="80"></label><br>
+    <label>ID канала: <input type="number" id="channelId" value="1"></label><br>
+    <button onclick="connect()">Подключиться</button>
+
+    <div id="chat"></div>
+
+    <input type="text" id="messageInput" placeholder="Введите сообщение">
+    <button onclick="sendMessage()">Отправить</button>
+
+    <script>
+        let socket = null;
+        const chatDiv = document.getElementById("chat");
+
+        function connect() {
+            const token = document.getElementById("token").value;
+            const channelId = document.getElementById("channelId").value;
+            socket = new WebSocket(`ws://localhost:8000/ws/${channelId}?token=${token}`);
+
+            socket.onopen = () => {
+                addMessage("🟢 Подключено к каналу " + channelId)
+            };
+
+            socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                addMessage(`[${data.timestamp}] ${data.user_id}: ${data.content}`);
+            };
+
+            socket.onclose = () => addMessage("🔴 Соединение закрыто");
+            socket.onerror = (err) => addMessage("❌ Ошибка: " + err.message);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById("messageInput");
+            if (socket && socket.readyState === WebSocket.OPEN) {
+                socket.send(input.value);
+                input.value = "";
+            }
+        }
+
+        function addMessage(text) {
+            const p = document.createElement("div");
+            p.textContent = text;
+            chatDiv.appendChild(p);
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>

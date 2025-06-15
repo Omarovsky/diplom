@@ -1,0 +1,41 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;              /* 🔒 блокируем прокрутку */
+  width: 100vw;
+  height: 100vh;
+  background: #111;
+}
+
+.app {
+  width: 1920px;
+  height: 1080px;
+  background: #2f3136;
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: scale(var(--scale));
+  transform-origin: top left;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+
+
+.rect {
+  position: absolute;   /* позволяет задавать координаты */
+  left: 25px;          /* X (по горизонтали) */
+  top: 50px;           /* Y (по вертикали) */
+  
+  width: 100px;         /* ширина — можно менять */
+  height: 1000px;        /* высота — можно менять */
+  
+  background-color: steelblue;
+  border: 2px solid black;
+  border-radius: 25px;
+}
