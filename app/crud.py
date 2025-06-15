@@ -106,7 +106,6 @@ async def get_or_create_dialog(db: AsyncSession, user1_id: int, user2_id: int):
     await db.refresh(new_dialog)
     return new_dialog
 
-# Отправить сообщение в диалоге
 async def create_direct_message(db: AsyncSession, sender_id: int, msg: schemas.MessageCreate):
     new_msg = DirectMessage(
         dialog_id=msg.dialog_id,
@@ -118,7 +117,6 @@ async def create_direct_message(db: AsyncSession, sender_id: int, msg: schemas.M
     await db.refresh(new_msg)
     return new_msg
 
-# Получить сообщения диалога
 async def get_dialog_messages(db: AsyncSession, dialog_id: int):
     result = await db.execute(
         select(DirectMessage).where(DirectMessage.dialog_id == dialog_id).order_by(DirectMessage.timestamp)
