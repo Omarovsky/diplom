@@ -215,7 +215,7 @@ function sendMessage() {
 function addMessage(text) {
     console.log("Adding message:", text);
     const messageDiv = document.createElement("div");
-    messageDiv.innerHTML = text;
+    messageDiv.textContent = text;
     document.getElementById("chat").appendChild(messageDiv);
     document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
 }
