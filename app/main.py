@@ -3,6 +3,9 @@ from app.database import engine, Base
 from app.routers import auth, users, chat, chat_ws, direct, ws_direct, webrtc
 from fastapi.middleware.cors import CORSMiddleware
 from app.schemas import DialogOut
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
 
 app = FastAPI()
 
@@ -14,8 +17,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-
+@app.get("/")
+async def serve_index():
+    return FileResponse("static/index.html")
 
 @app.on_event("startup")
 async def startup():
